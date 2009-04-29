@@ -1,0 +1,59 @@
+= dcWsSessionPlugin =
+
+Add security to your symfony based webservices. This is done by database driven session storage.
+
+== Installation ==
+
+  * Install from repositories:
+    {{{
+      $ svn export http://svn.symfony-project.com/plugins/dcWsSessionPlugin/trunk dcWsSessionPlugin
+    }}}
+
+  * Install from pear:
+    {{{
+      $ symfony plugin:install dcWsSessionPlugin
+    }}}
+
+  * Clear your cache
+    {{{
+      $ symfony cc
+    }}}
+
+  * Rebuild model and database
+    {{{
+      $ symfony propel:build-all
+    }}}
+
+  * Change the parent class in your webservice module actions.class.php
+    {{{
+      class webserviceActions extends dcWsSessionActions
+      {
+      }
+    }}}
+
+  * Regenerate wsdl file:
+    {{{
+      $ symfony webservice:generate-wsdl your_application wsdl_name host
+    }}}
+
+== Extra configuration ==
+All extra configuration is set in app.yml (in your webservice module application):
+  {{{
+    all:
+      dcWsSessionPlugin:
+        session_time: 10 # default is set on 20 (in minutes)
+        user:
+          class: User # default is sfGuardUser
+          username_field: name # default is username
+          password_field: pass # default is password
+          password_algorithm: md5 # default is sha1
+  }}}
+This is because automatically you can authenticate against your sfGuard users (from your application).
+
+== Notes ==
+  * ckWebServicePlugin is required
+  * If your application upon your webservice module is secure, turn login action security off (in apps/APP/modules/MODULE/config/security.yml):
+    {{{
+      login:
+        is_secure: off
+    }}}

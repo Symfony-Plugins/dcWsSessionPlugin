@@ -1,0 +1,14 @@
+propel:
+  _attributes: { package: plugins.dcWsSessionPlugin.lib.model }
+  dc_ws_session:
+    _attributes: { phpName: dcWsSession }
+    id:
+    session_key:
+      type: integer
+      required: true
+    ts:
+      type: timestamp
+      required: true
+    ip:
+      type: varchar(15)
+      required: true
