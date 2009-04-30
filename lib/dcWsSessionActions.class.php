@@ -53,7 +53,7 @@ class dcWsSessionActions extends sfActions
 
     if ($user = call_user_func(array($user_class, "doSelectOne"), $c))
     {
-      $session_key = rand(1, 99999);
+      $session_key = md5(rand(1, 99999));
 
       $dc_ws_session = new dcWsSession();
       $dc_ws_session->setSessionKey($session_key);
